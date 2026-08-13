@@ -1,0 +1,16 @@
+{
+  "name": "tri-galochki",
+  "version": "1.0.0",
+  "description": "Простой трекер трёх привычек и настроения дня",
+  "private": true,
+  "scripts": {
+    "android": "npx cap add android && npx cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/android": "latest",
+    "@capacitor/core": "latest"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "latest"
+  }
+}
