@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Три галочки</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <span class="topbar-title">Три галочки</span>
+  </header>
+
+  <!-- ===== ВКЛАДКА: СЕГОДНЯ ===== -->
+  <main id="view-today" class="view is-active">
+
+    <section class="date-card">
+      <p class="eyebrow">Сегодня</p>
+      <h1 id="today-date" class="date-heading"></h1>
+    </section>
+
+    <section class="card">
+      <p class="section-label">Как прошёл день?</p>
+      <div class="mood-row" id="mood-row">
+        <button type="button" class="mood-btn" data-mood="red">
+          <span class="mood-dot mood-dot--red"></span>
+          <span class="mood-label">Плохой</span>
+        </button>
+        <button type="button" class="mood-btn" data-mood="yellow">
+          <span class="mood-dot mood-dot--yellow"></span>
+          <span class="mood-label">Обычный</span>
+        </button>
+        <button type="button" class="mood-btn" data-mood="green">
+          <span class="mood-dot mood-dot--green"></span>
+          <span class="mood-label">Хороший</span>
+        </button>
+      </div>
+      <p id="bad-day-tip" class="bad-day-tip is-hidden">
+        Плохой день — это не провал. Минимальная версия на сегодня:
+        <strong>50 слов · 10 приседаний · 1 страница.</strong>
+        15 минут — и день спасён.
+      </p>
+    </section>
+
+    <section class="card">
+      <p class="section-label">Три привычки</p>
+      <div class="habits-list" id="habits-list">
+        <button type="button" class="habit-row" data-habit="write">
+          <span class="habit-icon">✍️</span>
+          <span class="habit-name">Писал</span>
+          <span class="habit-check"><span class="check-mark">✓</span></span>
+        </button>
+        <button type="button" class="habit-row" data-habit="move">
+          <span class="habit-icon">🏋️</span>
+          <span class="habit-name">Двигался</span>
+          <span class="habit-check"><span class="check-mark">✓</span></span>
+        </button>
+        <button type="button" class="habit-row" data-habit="grow">
+          <span class="habit-icon">📖</span>
+          <span class="habit-name">Развивался</span>
+          <span class="habit-check"><span class="check-mark">✓</span></span>
+        </button>
+      </div>
+    </section>
+
+    <button type="button" id="finish-day-btn" class="finish-btn">День завершён</button>
+    <p id="streak-note" class="streak-note"></p>
+
+  </main>
+
+  <!-- ===== ВКЛАДКА: СТАТИСТИКА ===== -->
+  <main id="view-stats" class="view">
+
+    <section class="month-nav">
+      <button type="button" id="prev-month" class="nav-arrow" aria-label="Предыдущий месяц">‹</button>
+      <h2 id="month-title" class="month-title"></h2>
+      <button type="button" id="next-month" class="nav-arrow" aria-label="Следующий месяц">›</button>
+    </section>
+
+    <section class="card" id="stats-card">
+      <div class="stats-grid" id="stats-grid"></div>
+    </section>
+
+    <section class="card">
+      <div class="weekday-row" id="weekday-row"></div>
+      <div class="calendar-grid" id="calendar-grid"></div>
+      <p id="day-detail" class="day-detail is-hidden"></p>
+    </section>
+
+    <button type="button" id="summary-btn" class="summary-btn">Итоги месяца</button>
+    <section id="summary-card" class="card summary-card is-hidden"></section>
+
+  </main>
+
+  <nav class="tabbar">
+    <button type="button" class="tab-btn is-active" data-tab="today">
+      <span class="tab-icon">✓</span>
+      <span>Сегодня</span>
+    </button>
+    <button type="button" class="tab-btn" data-tab="stats">
+      <span class="tab-icon">▦</span>
+      <span>Статистика</span>
+    </button>
+  </nav>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>
