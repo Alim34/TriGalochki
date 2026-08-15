@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "@capacitor/android": "latest",
-    "@capacitor/core": "latest"
+    "@capacitor/core": "latest",
+    "@capacitor/local-notifications": "latest"
   },
   "devDependencies": {
     "@capacitor/cli": "latest"
