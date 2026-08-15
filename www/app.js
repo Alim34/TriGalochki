@@ -384,6 +384,94 @@
     }
   });
 
+  // ================== НАПОМИНАНИЕ ==================
+  var LN = (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.LocalNotifications) || null;
+  var REMINDER_ID = 1001;
+  var REMINDER_KEY = 'triGalochkiReminder';
+
+  function loadReminder() {
+    try {
+      var raw = localStorage.getItem(REMINDER_KEY);
+      return raw ? JSON.parse(raw) : { enabled: false, time: '21:00' };
+    } catch (e) {
+      return { enabled: false, time: '21:00' };
+    }
+  }
+  function saveReminder(r) { localStorage.setItem(REMINDER_KEY, JSON.stringify(r)); }
+
+  function parseTime(t) {
+    var parts = t.split(':');
+    return { hour: parseInt(parts[0], 10), minute: parseInt(parts[1], 10) };
+  }
+
+  function scheduleReminder(time) {
+    if (!LN) return;
+    var hm = parseTime(time);
+    LN.schedule({
+      notifications: [{
+        id: REMINDER_ID,
+        title: 'Три галочки',
+        body: 'Как прошёл день? Отметь за 20 секунд.',
+        schedule: { on: { hour: hm.hour, minute: hm.minute }, allowWhileIdle: true }
+      }]
+    }).catch(function () {});
+  }
+
+  function cancelReminder() {
+    if (!LN) return;
+    LN.cancel({ notifications: [{ id: REMINDER_ID }] }).catch(function () {});
+  }
+
+  var settingsBtn = document.getElementById('settings-btn');
+  var settingsPanel = document.getElementById('settings-panel');
+  var reminderToggle = document.getElementById('reminder-toggle');
+  var reminderTime = document.getElementById('reminder-time');
+  var reminderNote = document.getElementById('reminder-note');
+  var reminder = loadReminder();
+
+  reminderToggle.checked = reminder.enabled;
+  reminderTime.value = reminder.time;
+
+  if (!LN) {
+    reminderToggle.disabled = true;
+    reminderNote.textContent = 'Работает только в установленном приложении, не в браузере.';
+  } else if (reminder.enabled) {
+    scheduleReminder(reminder.time);
+  }
+
+  settingsBtn.addEventListener('click', function () {
+    settingsPanel.classList.toggle('is-hidden');
+  });
+
+  reminderToggle.addEventListener('change', function () {
+    if (!LN) { reminderToggle.checked = false; return; }
+    if (reminderToggle.checked) {
+      LN.requestPermissions().then(function (res) {
+        if (res.display === 'granted') {
+          reminder.enabled = true;
+          saveReminder(reminder);
+          scheduleReminder(reminder.time);
+          reminderNote.textContent = '';
+        } else {
+          reminderToggle.checked = false;
+          reminderNote.textContent = 'Уведомления запрещены в настройках телефона.';
+        }
+      });
+    } else {
+      reminder.enabled = false;
+      saveReminder(reminder);
+      cancelReminder();
+      reminderNote.textContent = '';
+    }
+  });
+
+  reminderTime.addEventListener('change', function () {
+    reminder.time = reminderTime.value;
+    saveReminder(reminder);
+    if (reminder.enabled) scheduleReminder(reminder.time);
+  });
+
+  // ================== ВКЛАДКИ ==================
   // ================== ВКЛАДКИ ==================
   var tabBtns = document.querySelectorAll('.tab-btn');
   var views = { today: document.getElementById('view-today'), stats: document.getElementById('view-stats') };
