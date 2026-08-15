@@ -10,8 +10,8 @@
     "@capacitor/android": "latest",
     "@capacitor/core": "latest",
     "@capacitor/local-notifications": "latest"
-  "devDependencies":
-    {
+  },
+  "devDependencies": {
     "@capacitor/cli": "latest",
     "@capacitor/assets": "latest"
   }
