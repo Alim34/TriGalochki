@@ -9,9 +9,23 @@
 <body>
 <div class="app">
 
-  <header class="topbar">
+<header class="topbar">
     <span class="topbar-title">Три галочки</span>
+    <button type="button" id="settings-btn" class="settings-btn" aria-label="Настройки">⚙</button>
   </header>
+
+  <section id="settings-panel" class="card settings-panel is-hidden">
+    <p class="section-label">Напоминание</p>
+    <div class="reminder-row">
+      <label class="switch">
+        <input type="checkbox" id="reminder-toggle">
+        <span class="switch-track"><span class="switch-thumb"></span></span>
+      </label>
+      <span class="reminder-text">Каждый вечер в</span>
+      <input type="time" id="reminder-time" class="time-input" value="21:00">
+    </div>
+    <p id="reminder-note" class="reminder-note"></p>
+  </section>
 
   <!-- ===== ВКЛАДКА: СЕГОДНЯ ===== -->
   <main id="view-today" class="view is-active">
